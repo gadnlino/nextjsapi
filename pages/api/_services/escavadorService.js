@@ -39,10 +39,10 @@ export default {
 		Object.keys(params).forEach(key =>
 			url.searchParams.append(key, params[key]));
 
-		const accessTokenResponse = await getAccessToken();
+		const accessTokenResponse = await (await getAccessToken()).json();
 
 		const accessToken = await 
-			accessTokenResponse.json()["access_token"];
+			accessTokenResponse["access_token"];
 
 		let headers = {
 			"Authorization": `Bearer ${accessToken}`,
@@ -56,6 +56,6 @@ export default {
 			headers: headers,
 		});
 
-		return response;
+		return await response.json();
 	}
 }

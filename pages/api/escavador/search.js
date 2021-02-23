@@ -8,16 +8,10 @@ const handleRequest = async (req, res) => {
 				.json({ error: "Parâmetro obrigatório: person" })
 		}
 		else {
-			const response = await
-				escavadorService.searchPessoa(req.query.person);
+			const response = await escavadorService.searchPessoa(req.query.person);
 
-			console.log(response);
-
-			res.status(response.status).json({
-				response: response.status === 200 ? 
-					await response.json() : null,
-				error: response.status !== 200 ? 
-					await response.json() : null,
+			res.status(200).json({
+				response: response
 			});
 		}
 	}
