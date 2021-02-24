@@ -8,7 +8,8 @@ const SEARCH_METHOD = {
   ESCAVADOR: "ESCAVADOR",
   //GOOGLE_SCHOLAR: "GOOGLE_SCHOLAR",
   MICROSOFT_ACADEMIC: "MICROSOFT_ACADEMIC",
-  CROSSREF: "CROSSREF"
+  CROSSREF: "CROSSREF",
+  ORCID: "ORCID"
 };
 
 function syntaxHighlight(json) {
@@ -66,6 +67,12 @@ export default function PersonForm() {
             { params: { person: value } });
           stringResponse = JSON.stringify(responseCrossref.data,null, 2);
           break;
+        case (SEARCH_METHOD.ORCID):
+          const responseOrcid = await axios.get(
+            '/api/orcid/search',
+            { params: { person: value } });
+          stringResponse = JSON.stringify(responseOrcid.data,null, 2);
+          break;
         default:
           break;
       }
@@ -92,6 +99,10 @@ export default function PersonForm() {
         <button onClick={async () =>
           search(SEARCH_METHOD.CROSSREF)}>
           Pesquisar no Crossref
+        </button>
+        <button onClick={async () =>
+          search(SEARCH_METHOD.ORCID)}>
+          Pesquisar no Orcid
         </button>
         {/* <button onClick={async () => search(SEARCH_METHOD.GOOGLE_SCHOLAR)}>Pesquisar no Google Acadêmico</button> */}
       </div>
