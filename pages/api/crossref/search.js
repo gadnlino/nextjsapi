@@ -1,4 +1,5 @@
 import crosssrefService from "../_services/crosssrefService";
+import { filterJavascriptObject } from "../_utils/utils";
 
 const handleRequest = async (req, res) => {
 	if (req.method === 'GET') {
@@ -11,8 +12,22 @@ const handleRequest = async (req, res) => {
 			const response = await crosssrefService
 				.queryWorksByAuthor(req.query.person);
 
+			const controlObject = {
+				"reference-count": true,
+				"references-count": true,
+				"institution": true,
+				"created": true,
+				"title":true,
+				"author": true,
+				"URL": true
+			};
+
 			res.status(200).json({
-				response: response
+				response: {
+					origin: "escavador",
+					data: response.message.items
+						.map(obj => filterJavascriptObject(obj, controlObject))
+				}
 			});
 		}
 	}

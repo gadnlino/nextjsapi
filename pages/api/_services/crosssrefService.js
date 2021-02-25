@@ -10,9 +10,20 @@ export default {
 		};
 
 		const endpoint = apiBaseUrl + "/works";
+		
+		const res = await axios.get(endpoint, { params });
 
-		console.log(endpoint);
+		return res.data;
+	},
 
+	queryWorksByContributor: async (contributor) => {
+		let params = {
+			"query.contributor": contributor,
+			"mailto": process.env.CROSSREF_USER_AGENT
+		};
+
+		const endpoint = apiBaseUrl + "/works";
+		
 		const res = await axios.get(endpoint, { params });
 
 		return res.data;
