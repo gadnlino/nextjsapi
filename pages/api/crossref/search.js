@@ -17,16 +17,34 @@ const handleRequest = async (req, res) => {
 				"references-count": true,
 				"institution": true,
 				"created": true,
-				"title":true,
+				"title": true,
 				"author": true,
 				"URL": true
 			};
+
+			const affilitations = 
+				["UFRJ","UNIVERSIDADE FEDERAL DO RIO DE JANEIRO", "CCMN"];
 
 			res.status(200).json({
 				response: {
 					origin: "escavador",
 					data: response.message.items
 						.map(obj => filterJavascriptObject(obj, controlObject))
+						.filter(obj => {
+							let has = false;
+
+							const { author } = obj;
+
+							author.forEach(a=>{
+								a.affiliation.forEach(aff=>{
+									if(affilitations.includes(aff.name.toUpperCase())){
+										has = true;
+									}
+								})
+							});
+
+							return has;
+						})
 				}
 			});
 		}
