@@ -23,7 +23,7 @@ const handleRequest = async (req, res) => {
 			};
 
 			const affilitations = 
-				["UFRJ","UNIVERSIDADE FEDERAL DO RIO DE JANEIRO", "CCMN"];
+				["UFRJ","UNIVERSIDADE FEDERAL DO RIO DE JANEIRO", "CCMN", "CT-UFRJ", "CENTRO DE TECNOLOGIA UFRJ"];
 
 			res.status(200).json({
 				response: {
