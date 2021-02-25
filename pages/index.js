@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import PersonForm from './personForm.js'
+import SearchForm from './SearchForm.js'
 
 export default function Home() {
   return (
-    <PersonForm/>
+   <div>
+      <SearchForm/>
+   </div>
   )
 }

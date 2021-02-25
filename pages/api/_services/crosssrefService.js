@@ -10,9 +10,7 @@ export default {
 		};
 
 		const endpoint = apiBaseUrl + "/works";
-
-		console.log(endpoint);
-
+		
 		const res = await axios.get(endpoint, { params });
 
 		return res.data;
