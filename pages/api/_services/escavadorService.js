@@ -27,35 +27,62 @@ async function getAccessToken() {
 	return response;
 }
 
-export default {
-	searchPessoa: async (query) => {
-		const url = new URL(apiBaseUrl + "/busca");
 
-		let params = {
-			"q": query,
-			"qo": "p",
-		};
+async function searchPessoa(query) {
+	const url = new URL(apiBaseUrl + "/busca");
 
-		Object.keys(params).forEach(key =>
-			url.searchParams.append(key, params[key]));
+	let params = {
+		"q": query,
+		"qo": "p",
+	};
 
-		const accessTokenResponse = await (await getAccessToken()).json();
+	Object.keys(params).forEach(key =>
+		url.searchParams.append(key, params[key]));
 
-		const accessToken = await 
-			accessTokenResponse["access_token"];
+	const accessTokenResponse = await(await getAccessToken()).json();
 
-		let headers = {
-			"Authorization": `Bearer ${accessToken}`,
-			"X-Requested-With": "XMLHttpRequest",
-			"Accept": "application/json",
-			"Content-Type": "application/json",
-		}
+	const accessToken = await
+	accessTokenResponse["access_token"];
 
-		const response = await fetch(url, {
-			method: "GET",
-			headers: headers,
-		});
-
-		return await response.json();
+	let headers = {
+		"Authorization": `Bearer ${accessToken}`,
+		"X-Requested-With": "XMLHttpRequest",
+		"Accept": "application/json",
+		"Content-Type": "application/json",
 	}
+
+	const response = await fetch(url, {
+		method: "GET",
+		headers: headers,
+	});
+
+	return await response.json();
+}
+
+async function getPersonData(person){
+	const url = new URL(apiBaseUrl + "/pessoas/"+person.id);
+
+    const accessTokenResponse = await(await getAccessToken()).json();
+
+	const accessToken = await
+	accessTokenResponse["access_token"];
+
+	let headers = {
+		"Authorization": `Bearer ${accessToken}`,
+		"X-Requested-With": "XMLHttpRequest",
+		"Accept": "application/json",
+		"Content-Type": "application/json",
+	}
+
+	const response = await fetch(url, {
+		method: "GET",
+		headers: headers,
+	});
+
+	return await response.json();
+}
+
+export default {
+	searchPessoa: searchPessoa,
+	getPersonData: getPersonData,
 }
