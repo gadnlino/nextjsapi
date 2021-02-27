@@ -40,10 +40,46 @@ Para cada pessoa pesquisada, a aplicação pode retornar os seguintes dados:
 ### CrossRef
   - O Crossref faz busca por artigos publicados, a pesquisa é feita pelo nome da pessoa ou pelo nome do artigo em si. Ele traz a possibilidade de encontrar contribuintes dos artigos, juntamente com um link para tal.
 ### Orcid
-- O Orcid é uma plataforma parecida com Lattes e que trabalha de forma global. A API permite que consigamos encontrar todos os projetos de uma pessoa a partir de um ORCID ID que podemos encontrar a partir do nome da pessoa. 
+  - O Orcid é uma plataforma parecida com Lattes e que trabalha de forma global. A API permite que consigamos encontrar todos os projetos de uma pessoa a partir de um ORCID ID que podemos encontrar a partir do nome da pessoa. 
 ### Google Scholar
-- A API Google Scholar permite a busca por todo a base do google de artigos. Podemos pesquisar tanto pelo projeto quanto pelo nome da pessoa e ele retornará uma lista de resultados equivalente a uma pesquisa direta no google scholar, mas com possibilidade de adicionar parâmetros de filtro.
+  - A API Google Scholar permite a busca por todo a base do google de artigos. Podemos pesquisar tanto pelo projeto quanto pelo nome da pessoa e ele retornará uma lista de resultados equivalente a uma pesquisa direta no google scholar, mas com possibilidade de adicionar parâmetros de filtro.
 ### Microsoft Academic Knowledge
-- Essa API traz uma abordagem um pouco diferente das demais. Além da possibilidade de trazer os artigos e projetos, ela tem como foco principal gerar dados a respeito do projeto. Ex: número de vezes em que artigo aparece para um resultado de pesquisa no bing.
+  - Essa API traz uma abordagem um pouco diferente das demais. Além da possibilidade de trazer os artigos e projetos, ela tem como foco principal gerar dados a respeito do projeto. Ex: número de vezes em que artigo aparece para um resultado de pesquisa no bing.
 ### Web Of Science
-- Essa API também traz informações relevantes a respeito de artigos, publicações e dos autores e participantes do projeto. A busca pode ser feita pelo nome das pessoas ou projetos, também.
+  - Essa API também traz informações relevantes a respeito de artigos, publicações e dos autores e participantes do projeto. A busca pode ser feita pelo nome das pessoas ou projetos, também.
+
+
+# API
+
+## **GET**    ```/API/search/```
+Retorna os dados da pessoa à partir do nome. Os dados retornados dependem dos parâmetros passados.
+
+### Parâmetros:
+SearchValue (```String```): 
+- Descrição: Nome Da Pessoa/Projeto Buscado.
+
+apis (```String[]```): 
+- Define as APIS que serão utilizadas para a pesquisa.
+- Exemplo: [ 'CROSSREF', 'ESCAVADOR', 'ORCID' ]
+- Valores: 'CROSSREF', 'ESCAVADOR', 'ORCID'
+
+SearchTypes (```String[]```):
+- Tipo de Entidade Retornada pela request 
+- Exemplo: [ 'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' ]
+- Valores Possíveis:  'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' 
+
+Return Props (```String[]```):
+- Descrição: Dados Que serão retornados pela request
+- Exemplo: [ 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO' ]
+- Valores Possíveis: 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO', 'LINK_PESQUISA', 'PUBLISHER', 'REFERENCIAS'
+
+
+### Exemplo De Request:
+
+```
+http://localhost:3000/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS
+```
+
+
+
+
