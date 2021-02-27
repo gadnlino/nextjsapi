@@ -2,7 +2,7 @@ import crosssrefService from "./_services/crosssrefService";
 import escavadorService from "./_services/escavadorService";
 import orcidService from "./_services/orcidService";
 import utils from "./_utils/utils";
-import personFilter from "./escavador/personFilter"
+import _personFilter from "./escavador/_personFilter"
 
 const isNullOrUndefined = (value) => value === null || value === undefined;
 
