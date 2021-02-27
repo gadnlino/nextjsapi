@@ -74,13 +74,13 @@ returnProps (```String[]```):
 - Valores Possíveis: 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO', 'LINK_PESQUISA', 'PUBLISHER', 'REFERENCIAS'
 
 
-### Exemplo De Request:
+### Exemplo De Request com curl:
 
 ```
-http://{ApiURI}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS
+curl -X GET http://{ApiURI}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS
 ```
 
-### Exemplo utilizando Axios:
+### Exemplo De Request utilizando Axios:
 
 ```javascript
   import axios from 'axios';
