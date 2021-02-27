@@ -34,12 +34,16 @@ Para cada pessoa pesquisada, a aplicação pode retornar os seguintes dados:
   - Data de fim do projeto
   - Descrição
 
-# O que cada API traz de valor:
+# Algumas Especificações de cada API:
 ### Escavador
-  - Essa API tem sua busca feita primordialmente pelo nome da pessoa e tem a capacidade de retornar dados baseados no currículo lattes do pesquisado, i.e., resumo curricular, projetos de pesquisa, formação acadêmica/profissional e outros.
+  - O Escavador tem sua busca feita primordialmente pelo nome da pessoa e tem a capacidade de retornar dados baseados no currículo lattes do pesquisado, i.e., resumo curricular, projetos de pesquisa, formação acadêmica/profissional e outros.
 ### CrossRef
-  - Essa API faz busca por artigos publicados, a pesquisa é feita pelo nome da pessoa ou pelo nome do artigo em si. Ele traz a possibilidade de encontrar contribuintes dos artigos, juntamente com um link para tal.
+  - O Crossref faz busca por artigos publicados, a pesquisa é feita pelo nome da pessoa ou pelo nome do artigo em si. Ele traz a possibilidade de encontrar contribuintes dos artigos, juntamente com um link para tal.
 ### Orcid
-### Google Schoolar
+- O Orcid é uma plataforma parecida com Lattes e que trabalha de forma global. A API permite que consigamos encontrar todos os projetos de uma pessoa a partir de um ORCID ID que podemos encontrar a partir do nome da pessoa. 
+### Google Scholar
+- A API Google Scholar permite a busca por todo a base do google de artigos. Podemos pesquisar tanto pelo projeto quanto pelo nome da pessoa e ele retornará uma lista de resultados equivalente a uma pesquisa direta no google scholar, mas com possibilidade de adicionar parâmetros de filtro.
 ### Microsoft Academic Knowledge
+- Essa API traz uma abordagem um pouco diferente das demais. Além da possibilidade de trazer os artigos e projetos, ela tem como foco principal gerar dados a respeito do projeto. Ex: número de vezes em que artigo aparece para um resultado de pesquisa no bing.
 ### Web Of Science
+- Essa API também traz informações relevantes a respeito de artigos, publicações e dos autores e participantes do projeto. A busca pode ser feita pelo nome das pessoas ou projetos, também.
