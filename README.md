@@ -60,17 +60,17 @@ SearchValue (```String```):
 
 apis (```String[]```): 
 - Define as APIS que serão utilizadas para a pesquisa.
-- Exemplo: [ 'CROSSREF', 'ESCAVADOR', 'ORCID' ]
+- Exemplo: ```[ 'CROSSREF', 'ESCAVADOR', 'ORCID' ]```
 - Valores: 'CROSSREF', 'ESCAVADOR', 'ORCID'
 
 SearchTypes (```String[]```):
 - Tipo de Entidade Retornada pela request 
-- Exemplo: [ 'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' ]
+- Exemplo: ```[ 'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' ]```
 - Valores Possíveis:  'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' 
 
 returnProps (```String[]```):
 - Descrição: Dados Que serão retornados pela request
-- Exemplo: [ 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO' ]
+- Exemplo: ```[ 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO' ]```
 - Valores Possíveis: 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO', 'LINK_PESQUISA', 'PUBLISHER', 'REFERENCIAS'
 
 
