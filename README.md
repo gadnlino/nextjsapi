@@ -68,7 +68,7 @@ SearchTypes (```String[]```):
 - Exemplo: [ 'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' ]
 - Valores Possíveis:  'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' 
 
-Return Props (```String[]```):
+returnProps (```String[]```):
 - Descrição: Dados Que serão retornados pela request
 - Exemplo: [ 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO' ]
 - Valores Possíveis: 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO', 'LINK_PESQUISA', 'PUBLISHER', 'REFERENCIAS'
@@ -77,7 +77,31 @@ Return Props (```String[]```):
 ### Exemplo De Request:
 
 ```
-http://localhost:3000/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS
+http://{ApiURI}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS
+```
+
+### Exemplo utilizando Axios:
+
+```javascript
+  import axios from 'axios';
+
+  const parameters = {
+    SearchValue: 'Jayme Luiz Szwarcfiter',
+    apis: ['CROSSREF', 'ESCAVADOR', 'ORCID' ],
+    searchTypes: [ 'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' ],
+    returnProps: [
+      'AUTORES', 
+      'INSTITUICAO', 
+      'DATA_PUBLICACAO', 
+      'LINK_PESQUISA', 
+      'PUBLISHER', 
+      'REFERENCIAS'
+      ]
+  }
+
+  const response = await axios.get(
+            'http://apiURI/api/search',
+            { params:  parameters});
 ```
 
 
