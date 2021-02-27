@@ -1,34 +1,112 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# API de Escavação 
 
-## Getting Started
+Projeto Final da Matéria Computação e Sociedade.
 
-First, run the development server:
+O Objetivo do projeto é fornecer uma API com endpoint único, que permite acesso à dados sobre projetos de pesquisa, Projetos de Extensão, etc, de pesquisadores e alunos da UFRJ, acessando diversas APIs e realizando uma junção dos resultados.
+
+# APIs Utilizadas
+
+- Escavador
+- CrossRef
+- Orcid
+- Google Schoolar
+- Microsoft Academic Knowledge
+- Web Of Science
+
+# Funcionamento Geral
+
+O Usuário pode realizar uma busca através do nome do pesquisador, então o sistema vai fazer uma busca em cada uma das APIs, filtrar resultados pertencentes à pessoas relacionadas à UFRJ, e então fazer uma junção dos resultados para exibir os Dados.
+
+
+# Dados Disponíveis
+
+Para cada pessoa pesquisada, a aplicação pode retornar os seguintes dados:
+
+- Formação academica/profissional
+- Artigos publicados
+- Resumo disponível no currículo Lattes
+- Lista dos **projetos de pesquisa** contendo:
+  - Data de Início do Projeto 
+  - Data de Fim do Projeto
+  - Descrição
+- Lista dos **projetos de extensão** contendo:
+  - Data de início do projeto 
+  - Data de fim do projeto
+  - Descrição
+
+# Algumas Especificações de cada API:
+### Escavador
+  - O Escavador tem sua busca feita primordialmente pelo nome da pessoa e tem a capacidade de retornar dados baseados no currículo lattes do pesquisado, i.e., resumo curricular, projetos de pesquisa, formação acadêmica/profissional e outros.
+### CrossRef
+  - O Crossref faz busca por artigos publicados, a pesquisa é feita pelo nome da pessoa ou pelo nome do artigo em si. Ele traz a possibilidade de encontrar contribuintes dos artigos, juntamente com um link para tal.
+### Orcid
+  - O Orcid é uma plataforma parecida com Lattes e que trabalha de forma global. A API permite que consigamos encontrar todos os projetos de uma pessoa a partir de um ORCID ID que podemos encontrar a partir do nome da pessoa. 
+### Google Scholar
+  - A API Google Scholar permite a busca por todo a base do google de artigos. Podemos pesquisar tanto pelo projeto quanto pelo nome da pessoa e ele retornará uma lista de resultados equivalente a uma pesquisa direta no google scholar, mas com possibilidade de adicionar parâmetros de filtro.
+### Microsoft Academic Knowledge
+  - Essa API traz uma abordagem um pouco diferente das demais. Além da possibilidade de trazer os artigos e projetos, ela tem como foco principal gerar dados a respeito do projeto. Ex: número de vezes em que artigo aparece para um resultado de pesquisa no bing.
+### Web Of Science
+  - Essa API também traz informações relevantes a respeito de artigos, publicações e dos autores e participantes do projeto. A busca pode ser feita pelo nome das pessoas ou projetos, também.
+
+
+# API
+
+## **GET**    ```/API/search/```
+Retorna os dados da pessoa à partir do nome. Os dados retornados dependem dos parâmetros passados.
+
+### Parâmetros:
+SearchValue (```String```): 
+- Descrição: Nome Da Pessoa/Projeto Buscado.
+
+apis (```String[]```): 
+- Define as APIS que serão utilizadas para a pesquisa.
+- Exemplo: [ 'CROSSREF', 'ESCAVADOR', 'ORCID' ]
+- Valores: 'CROSSREF', 'ESCAVADOR', 'ORCID'
+
+SearchTypes (```String[]```):
+- Tipo de Entidade Retornada pela request 
+- Exemplo: [ 'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' ]
+- Valores Possíveis:  'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' 
+
+returnProps (```String[]```):
+- Descrição: Dados Que serão retornados pela request
+- Exemplo: [ 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO' ]
+- Valores Possíveis: 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO', 'LINK_PESQUISA', 'PUBLISHER', 'REFERENCIAS'
+
+
+### Exemplo De Request com curl:
 
 ```bash
-npm run dev
-# or
-yarn dev
+curl -X GET 'http://{apiURI}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS'
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Obs: Substitua {apiURI} pelo endereço da API.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Exemplo De Request utilizando Axios:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```javascript
+  import axios from 'axios';
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+  const parameters = {
+    SearchValue: 'Jayme Luiz Szwarcfiter',
+    apis: ['CROSSREF', 'ESCAVADOR', 'ORCID' ],
+    searchTypes: [ 'PESSOA', 'PROJETO_PESQUISA_EXTENSAO' ],
+    returnProps: [
+      'AUTORES', 
+      'INSTITUICAO', 
+      'DATA_PUBLICACAO', 
+      'LINK_PESQUISA', 
+      'PUBLISHER', 
+      'REFERENCIAS'
+      ]
+  }
 
-## Learn More
+  const response = await axios.get(
+            'http://{apiURI}/api/search',
+            { params:  parameters});
+```
 
-To learn more about Next.js, take a look at the following resources:
+Obs: Substitua {apiURI} pelo endereço da API.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
