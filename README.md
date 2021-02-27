@@ -77,8 +77,10 @@ returnProps (```String[]```):
 ### Exemplo De Request com curl:
 
 ```
-curl -X GET http://{ApiURI}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS
+curl -X GET http://{apiURI}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS
 ```
+
+Obs: Substitua {apiURI} pelo endereço da API.
 
 ### Exemplo De Request utilizando Axios:
 
@@ -100,10 +102,11 @@ curl -X GET http://{ApiURI}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=
   }
 
   const response = await axios.get(
-            'http://apiURI/api/search',
+            'http://{apiURI}/api/search',
             { params:  parameters});
 ```
 
+Obs: Substitua {apiURI} pelo endereço da API.
 
 
 
