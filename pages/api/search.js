@@ -89,7 +89,7 @@ export default async function handleRequest(req, res) {
 						const response = await
 							escavadorService.searchPessoa(searchValue);
 
-						let items = personFilter.ufrjOnly(response.items)
+						let items = _personFilter.ufrjOnly(response.items)
 
 						console.log(items);
 
@@ -186,7 +186,7 @@ export default async function handleRequest(req, res) {
 			catch (e) {
 				res.status(500)
 					.send(JSON.stringify({
-						errors: [e]
+						errors: [e.message]
 					}));
 			}
 		}
