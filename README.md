@@ -76,8 +76,8 @@ returnProps (```String[]```):
 
 ### Exemplo De Request com curl:
 
-```
-curl -X GET http://{apiURI}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS
+```bash
+curl -X GET 'http://{apiURI}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS'
 ```
 
 Obs: Substitua {apiURI} pelo endereço da API.
