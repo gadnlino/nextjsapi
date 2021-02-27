@@ -3,7 +3,7 @@
  * get the name, id, and description of people who mention ufrj in the description
  */
 function ufrjOnly(persons) {
-    if(persons === null) return [];
+    if(!persons) return [];
     let PersonsImportantData = persons.map(p => getEssentialData(p))
 
     return PersonsImportantData.filter(p => mentionUfrj(p))

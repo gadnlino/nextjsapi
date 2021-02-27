@@ -5,18 +5,19 @@ import fs from "fs";
 
 const handleRequest = async (req, res) => {
 	if (req.method === 'GET') {
-		if (!Object.keys(req.query).includes("person")) {
+		if (!Object.keys(req.query).includes("searchValue")) {
 			res
-				.status(400)
-				.json({ error: "Parâmetro obrigatório: person" })
+			.status(400)
+			.json({ error: "Parâmetro obrigatório: searchValue" })
 		}
 		else {
-			const response = await escavadorService.searchPessoa(req.query.person);
+			const response = await 
+				escavadorService.searchPessoa(req.query.person);
 			
 			let items = personFilter.ufrjOnly(response.items)
 
-
-			let peopleWithProjects = []
+			let peopleWithProjects = [];
+			
 			for(let person of items){
 				try{
 					const response = await escavadorService.getPersonData(person);

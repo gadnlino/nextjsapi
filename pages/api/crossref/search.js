@@ -1,16 +1,18 @@
 import crosssrefService from "../_services/crosssrefService";
-import { filterJavascriptObject } from "../_utils/utils";
+import utils from "../_utils/utils";
 
 const handleRequest = async (req, res) => {
+	console.log(req.query);
+
 	if (req.method === 'GET') {
-		if (!Object.keys(req.query).includes("person")) {
+		if (!Object.keys(req.query).includes("searchValue")) {
 			res
 				.status(400)
-				.json({ error: "Parâmetro obrigatório: person" })
+				.json({ error: "Parâmetro obrigatório: searchValue" })
 		}
 		else {
 			const response = await crosssrefService
-				.queryWorksByAuthor(req.query.person);
+				.queryWorksByAuthor(req.query.searchValue);
 
 			const controlObject = {
 				"reference-count": true,
@@ -22,30 +24,31 @@ const handleRequest = async (req, res) => {
 				"URL": true
 			};
 
-			const affilitations = 
-				["UFRJ","UNIVERSIDADE FEDERAL DO RIO DE JANEIRO", "CCMN", "CT-UFRJ", "CENTRO DE TECNOLOGIA UFRJ"];
+			const keywords = 
+				["UFRJ",
+				"UNIVERSIDADE FEDERAL DO RIO DE JANEIRO", 
+				"CCMN", 
+				"CT-UFRJ", 
+				"CENTRO DE TECNOLOGIA UFRJ"];
 
 			res.status(200).json({
-				response: {
-					origin: "escavador",
-					data: response.message.items
-						.map(obj => filterJavascriptObject(obj, controlObject))
-						.filter(obj => {
-							let has = false;
+				response: response.message.items
+				//.map(obj => filterJavascriptObject(obj, controlObject))
+				.filter(obj => {
+					let has = false;
 
-							const { author } = obj;
+					const { author } = obj;
 
-							author.forEach(a=>{
-								a.affiliation.forEach(aff=>{
-									if(affilitations.includes(aff.name.toUpperCase())){
-										has = true;
-									}
-								})
-							});
-
-							return has;
+					author.forEach(a=>{
+						a.affiliation.forEach(aff=>{
+							if(keywords.includes(aff.name.toUpperCase())){
+								has = true;
+							}
 						})
-				}
+					});
+
+					return has;
+				})
 			});
 		}
 	}
