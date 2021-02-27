@@ -1,7 +1,7 @@
 import escavadorService from "../_services/escavadorService";
 
-import personFilter from "./personFilter";
-import fs from "fs";
+import personFilter from "./_personFilter.js";
+import fs, { readFileSync } from "fs";
 
 const handleRequest = async (req, res) => {
 	if (req.method === 'GET') {
@@ -12,10 +12,9 @@ const handleRequest = async (req, res) => {
 		}
 		else {
 			const response = await escavadorService.searchPessoa(req.query.person);
-			
+
 			let items = personFilter.ufrjOnly(response.items)
-
-
+		
 			let peopleWithProjects = []
 			for(let person of items){
 				try{
