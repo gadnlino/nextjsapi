@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# API de Escavação 
 
-## Getting Started
+Projeto Final da Matéria Computação e Sociedade.
 
-First, run the development server:
+O Objetivo do projeto é fornecer uma API com endpoint único, que permite acesso à dados sobre projetos de pesquisa, Projetos de Extensão, etc, de pesquisadores e alunos da UFRJ, acessando diversas APIs e realizando uma junção dos resultados.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+# APIs Utilizadas
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Escavador
+- CrossRef
+- Orcid
+- Google Schoolar
+- Microsoft Academic Knowledge
+- Web Of Science
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+# Funcionamento Geral
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+O Usuário pode realizar uma busca através do nome do pesquisador, então o sistema vai fazer uma busca em cada uma das APIs, filtrar resultados pertencentes à pessoas relacionadas à UFRJ, e então fazer uma junção dos resultados para exibir os Dados.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+# Dados Disponíveis
 
-To learn more about Next.js, take a look at the following resources:
+Para cada pessoa pesquisada, a aplicação pode retornar os seguintes dados:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Formação academica/profissional
+- Artigos publicados
+- Resumo disponível no currículo Lattes
+- Lista dos **projetos de pesquisa** contendo:
+  - Data de Início do Projeto 
+  - Data de Fim do Projeto
+  - Descrição
+- Lista dos **projetos de extensão** contendo:
+  - Data de início do projeto 
+  - Data de fim do projeto
+  - Descrição
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# O que cada API traz de valor:
+### Escavador
+  - Essa API tem sua busca feita primordialmente pelo nome da pessoa e tem a capacidade de retornar dados baseados no currículo lattes do pesquisado, i.e., resumo curricular, projetos de pesquisa, formação acadêmica/profissional e outros.
+### CrossRef
+  - Essa API faz busca por artigos publicados, a pesquisa é feita pelo nome da pessoa ou pelo nome do artigo em si. Ele traz a possibilidade de encontrar contribuintes dos artigos, juntamente com um link para tal.
+### Orcid
+### Google Schoolar
+### Microsoft Academic Knowledge
+### Web Of Science
