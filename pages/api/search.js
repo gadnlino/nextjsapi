@@ -103,13 +103,32 @@ export default async function handleRequest(req, res) {
 						let peopleWithProjects = [];
 
 						for (let person of items) {
-
 							try {
-								const response = await escavadorService.getPersonData(person);
+								const response =
+									await escavadorService.getPersonData(person);
+
 								peopleWithProjects.push(
 									{
-										...person,
-										projetos: response.curriculo_lattes.projetos
+										...utils.filterJavascriptObject(
+											{ ...person },
+											{
+												"nome": true,
+												"id": false,
+												"resumo": true
+											}),
+
+										projetos:
+											response.curriculo_lattes.projetos
+												.map(obj =>
+													utils.filterJavascriptObject(obj, {
+														"id": false,
+														"descricao": true,
+														"ano_inicio":
+															returnProps.includes(utils.RETURN_PROPS.DATA_PUBLICACAO),
+														"ano_fim":
+															returnProps.includes(utils.RETURN_PROPS.DATA_PUBLICACAO),
+														"lattes_id": true
+													}))
 									}
 								)
 							}
@@ -142,7 +161,7 @@ export default async function handleRequest(req, res) {
 						const controlObject = {
 							"indexed": false,
 							"reference-count": false,
-							"publisher": 
+							"publisher":
 								returnProps.includes(utils.RETURN_PROPS.PUBLISHER),
 							"issue": false,
 							"content-domain": false,
