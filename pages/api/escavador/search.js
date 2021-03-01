@@ -15,7 +15,8 @@ const handleRequest = async (req, res) => {
 
 			let items = personFilter.ufrjOnly(response.items)
 		
-			let peopleWithProjects = []
+			let peopleWithProjects = [];
+			
 			for(let person of items){
 				try{
 					const response = await escavadorService.getPersonData(person);

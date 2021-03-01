@@ -2,7 +2,6 @@ import crosssrefService from "../_services/crosssrefService";
 import utils from "../_utils/utils";
 
 const handleRequest = async (req, res) => {
-	console.log(req.query);
 
 	if (req.method === 'GET') {
 		if (!Object.keys(req.query).includes("searchValue")) {

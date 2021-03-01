@@ -45,88 +45,52 @@ export default function SearchForm() {
       return;
     }
 
-    let responses = [];
-
     try {
       setLoading(true);
 
-      let promises = [];
-
       const params = {
         searchValue: value,
-        apis,
-        searchTypes,
-        returnProps
+        apis: apis,
+        searchTypes: searchTypes,
+        returnProps: returnProps
       };
 
-      if (apis.includes(utils.APIS.ESCAVADOR)) {
-        const promiseEscavador = axios.get(
-          '/api/escavador/search',
-          { params })
-          .then(response => ({
-            origin: utils.APIS.ESCAVADOR,
-            response: response.data
-          }));
+      console.log(params);
 
-        promises.push(promiseEscavador);
-      }
+      let apisSearchString = "";
 
-      if (apis.includes(utils.APIS.CROSSREF)) {
-        const promiseCrossref = axios.get(
-          '/api/crossref/search',
-          { params })
-          .then(response => ({
-            origin: utils.APIS.CROSSREF,
-            response: response.data
-          }));
+      apis.forEach((api, index) => {
+        apisSearchString += `apis=${api}`;
 
-        promises.push(promiseCrossref);
-      }
+        if (index < apis.length - 1) {
+          apisSearchString += "&";
+        }
+      });
 
-      if (apis.includes(utils.APIS.ORCID)) {
-        const promiseOrcid = await axios.get(
-          '/api/orcid/search',
-          { params })
-          .then(response => ({
-            origin: utils.APIS.ORCID,
-            response: response.data
-          }));
+      let searchTypesString = "";
 
-        promises.push(promiseOrcid);
-      }
+      searchTypes.forEach((searchType, index) => {
+        searchTypesString += `searchTypes=${searchType}`;
 
-      // switch (searchMethod) {
-      //   case (utils.APIS.ESCAVADOR):
-      //     const responseEscavador = await axios.get(
-      //       '/api/escavador/search',
-      //       { params: { person: value } });
-      //     stringResponse = JSON.stringify(responseEscavador.data, null, 2);
-      //     break;
-      //   // case (utils.APIS.MICROSOFT_ACADEMIC):
-      //   //   const responseMicrosoft = await axios.get(
-      //   //     '/api/microsoftAcedemic/search',
-      //   //     { params: { person: value } });
-      //   //   stringResponse = JSON.stringify(responseMicrosoft.data, null, 2);
-      //   //   break;
-      //   case (utils.APIS.CROSSREF):
-      //     const responseCrossref = await axios.get(
-      //       '/api/crossref/search',
-      //       { params: { person: value } });
-      //     stringResponse = JSON.stringify(responseCrossref.data, null, 2);
-      // //     break;
-      //   case (utils.utils.APIS.ORCID):
-      //     const responseOrcid = await axios.get(
-      //       '/api/orcid/search',
-      //       { params: { person: value } });
-      //     stringResponse = JSON.stringify(responseOrcid.data, null, 2);
-      //     break;
-      //   default:
-      //     break;
-      // }
+        if (index < searchTypes.length - 1) {
+          searchTypesString += "&";
+        }
+      });
 
-      responses = await Promise.all(promises);
+      let returnPropsString = "";
 
-      setResponseString(JSON.stringify(responses, null, 2));
+      returnProps.forEach((returnProp, index) => {
+        returnPropsString += `returnProps=${returnProp}`;
+
+        if (index < returnProps.length - 1) {
+          returnPropsString += "&";
+        }
+      });
+
+      const response = await 
+        axios.get(`/api/search?searchValue=${value}&${apisSearchString}&${searchTypesString}&${returnPropsString}`);
+
+      setResponseString(JSON.stringify(response.data, null, 2));
       setError(null);
     }
     catch (e) {
@@ -249,8 +213,8 @@ export default function SearchForm() {
                 setReturnProps([...returnProps, utils.RETURN_PROPS.INSTITUICAO])
               }
               else {
-                setReturnProps(returnProps.filter(a => 
-                    a !== utils.RETURN_PROPS.INSTITUICAO));
+                setReturnProps(returnProps.filter(a =>
+                  a !== utils.RETURN_PROPS.INSTITUICAO));
               }
             }} />
           Instituição
@@ -265,8 +229,8 @@ export default function SearchForm() {
                 setReturnProps([...returnProps, utils.RETURN_PROPS.AUTORES])
               }
               else {
-                setReturnProps(returnProps.filter(a => 
-                    a !== utils.RETURN_PROPS.AUTORES));
+                setReturnProps(returnProps.filter(a =>
+                  a !== utils.RETURN_PROPS.AUTORES));
               }
             }} />
           Autores
@@ -281,7 +245,7 @@ export default function SearchForm() {
                 setReturnProps([...returnProps, utils.RETURN_PROPS.DATA_PUBLICACAO])
               }
               else {
-                setReturnProps(returnProps.filter(a =>  
+                setReturnProps(returnProps.filter(a =>
                   a !== utils.RETURN_PROPS.DATA_PUBLICACAO));
               }
             }} />
@@ -297,8 +261,8 @@ export default function SearchForm() {
                 setReturnProps([...returnProps, utils.RETURN_PROPS.LINK_PESQUISA])
               }
               else {
-                setReturnProps(returnProps.filter(a => 
-                    a !== utils.RETURN_PROPS.LINK_PESQUISA));
+                setReturnProps(returnProps.filter(a =>
+                  a !== utils.RETURN_PROPS.LINK_PESQUISA));
               }
             }} />
           Link para a pesquisa
@@ -313,8 +277,8 @@ export default function SearchForm() {
                 setReturnProps([...returnProps, utils.RETURN_PROPS.PUBLISHER])
               }
               else {
-                setReturnProps(returnProps.filter(a => 
-                    a !== utils.RETURN_PROPS.PUBLISHER));
+                setReturnProps(returnProps.filter(a =>
+                  a !== utils.RETURN_PROPS.PUBLISHER));
               }
             }} />
           Publisher
@@ -329,8 +293,8 @@ export default function SearchForm() {
                 setReturnProps([...returnProps, utils.RETURN_PROPS.REFERENCIAS])
               }
               else {
-                setReturnProps(returnProps.filter(a => 
-                    a !== utils.RETURN_PROPS.REFERENCIAS));
+                setReturnProps(returnProps.filter(a =>
+                  a !== utils.RETURN_PROPS.REFERENCIAS));
               }
             }} />
           Referências
