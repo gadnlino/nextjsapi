@@ -119,3 +119,8 @@ curl -X GET 'http://{apiAddress}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchV
             'http://{apiAddress}/api/search',
             { params:  parameters});
 ```
+#### Integrantes do grupo
+
+- [Eduardo Leão](https://github.com/LeaoEduardo/)
+- [Guilherme Avelino](https://github.com/gadnlino/)
+- [Renan Ignacio](https://github.com/RenanIOliveira)
