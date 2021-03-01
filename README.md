@@ -84,11 +84,11 @@ returnProps (```String[]```):
 
 - Seleção de parâmetros para request:
 
-!["Parâmetros da Pesquisa"](./print2.jpg?raw=true)
+!["Parâmetros da Pesquisa"](print2.jpg)
 
 - Seleção de parâmetros com retorno:
 
-!["Parâmetros com retorno"](./print1.jpg?raw=true)
+!["Parâmetros com retorno"](print1.jpg)
 
 ### Exemplo De Request com curl:
 
