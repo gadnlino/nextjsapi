@@ -9,9 +9,9 @@ O Objetivo do projeto é fornecer uma API com endpoint único, que permite acess
 - Escavador
 - CrossRef
 - Orcid
-- Google Schoolar
-- Microsoft Academic Knowledge
-- Web Of Science
+- ~~Google Schoolar~~
+- ~~Microsoft Academic Knowledge~~
+- ~~Web Of Science~~
 
 # Funcionamento Geral
 
@@ -51,7 +51,12 @@ Para cada pessoa pesquisada, a aplicação pode retornar os seguintes dados:
 
 # API
 
-## **GET**    ```/API/search/```
+## Endereço(apiAddress)
+
+https://nextjsapi-eight.vercel.app/
+
+## Rotas
+### **GET**    ```/API/search/```
 Retorna os dados da pessoa à partir do nome. Os dados retornados dependem dos parâmetros passados.
 
 ### Parâmetros:
@@ -73,14 +78,13 @@ returnProps (```String[]```):
 - Exemplo: ```[ 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO' ]```
 - Valores Possíveis: 'AUTORES', 'INSTITUICAO', 'DATA_PUBLICACAO', 'LINK_PESQUISA', 'PUBLISHER', 'REFERENCIAS'
 
+## Exemplos
 
 ### Exemplo De Request com curl:
 
 ```bash
 curl -X GET 'http://{apiAddress}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchValue=Maria Luiza Machado Campos&searchTypes=PESSOA&returnProps=AUTORES&returnProps=REFERENCIAS'
 ```
-
-Obs: Substitua {apiAddress} pelo endereço da API.
 
 ### Exemplo De Request utilizando Axios:
 
@@ -105,8 +109,3 @@ Obs: Substitua {apiAddress} pelo endereço da API.
             'http://{apiAddress}/api/search',
             { params:  parameters});
 ```
-
-Obs: Substitua {apiAddress} pelo endereço da API.
-
-
-
