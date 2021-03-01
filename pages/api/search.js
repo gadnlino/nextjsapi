@@ -68,7 +68,16 @@ export default async function handleRequest(req, res) {
 	if (req.method === 'GET') {
 		const queryParams = req.query;
 
-		const { apis, returnProps, searchTypes, searchValue } = queryParams;
+		let { apis, returnProps, searchTypes, searchValue } = queryParams;
+
+		apis = typeof apis === 'string' ?
+			[apis] : apis;
+
+		returnProps = typeof returnProps === 'string' ?
+			[returnProps] : returnProps;
+
+		searchTypes = typeof searchTypes === 'string' ?
+			[searchTypes] : searchTypes;
 
 		const errors = validateRequest(req);
 
@@ -89,9 +98,7 @@ export default async function handleRequest(req, res) {
 						const response = await
 							escavadorService.searchPessoa(searchValue);
 
-						let items = _personFilter.ufrjOnly(response.items)
-
-						console.log(items);
+						let items = _personFilter.ufrjOnly(response.items);
 
 						let peopleWithProjects = [];
 
@@ -127,18 +134,46 @@ export default async function handleRequest(req, res) {
 				}
 
 				if (apis.includes(utils.APIS.CROSSREF)) {
+
 					const promiseCrossref = async () => {
 						const response = await crosssrefService
 							.queryWorksByAuthor(req.query.searchValue);
 
 						const controlObject = {
-							"reference-count": true,
-							"references-count": true,
-							"institution": true,
-							"created": true,
+							"indexed": false,
+							"reference-count": false,
+							"publisher": 
+								returnProps.includes(utils.RETURN_PROPS.PUBLISHER),
+							"issue": false,
+							"content-domain": false,
+							"short-container-title": false,
+							"published-print": returnProps.includes(utils.RETURN_PROPS.DATA_PUBLICACAO),
+							"abstract": true,
+							"DOI": false,
+							"type": false,
+							"created": returnProps.includes(utils.RETURN_PROPS.DATA_PUBLICACAO),
+							"page": false,
+							"source": false,
+							"is-referenced-by-count": false,
 							"title": true,
-							"author": true,
-							"URL": true
+							"prefix": false,
+							"volume": false,
+							"author": returnProps.includes(utils.RETURN_PROPS.AUTORES),
+							"member": false,
+							"reference": returnProps.includes(utils.RETURN_PROPS.REFERENCIAS),
+							"container-title": false,
+							"link": returnProps.includes(utils.RETURN_PROPS.LINK_PESQUISA),
+							"deposited": false,
+							"score": false,
+							"issued": returnProps.includes(utils.RETURN_PROPS.DATA_PUBLICACAO),
+							"references-count": false,
+							"journal-issue": false,
+							"alternative-id": false,
+							"URL": returnProps.includes(utils.RETURN_PROPS.LINK_PESQUISA),
+							"relation": false,
+							"ISSN": false,
+							"issn-type": false,
+							"subject": false
 						};
 
 						const keywords =
@@ -149,22 +184,24 @@ export default async function handleRequest(req, res) {
 								"CENTRO DE TECNOLOGIA UFRJ"];
 
 						return response.message.items
-							//.map(obj => utils.filterJavascriptObject(obj, controlObject))
 							.filter(obj => {
 								let has = false;
 
 								const { author } = obj;
 
-								author.forEach(a => {
-									a.affiliation.forEach(aff => {
-										if (keywords.includes(aff.name.toUpperCase())) {
-											has = true;
-										}
-									})
-								});
+								if (!isNullOrUndefined(author)) {
+									author.forEach(a => {
+										a.affiliation.forEach(aff => {
+											if (keywords.includes(aff.name.toUpperCase())) {
+												has = true;
+											}
+										})
+									});
+								}
 
 								return has;
 							})
+							.map(obj => utils.filterJavascriptObject(obj, controlObject));
 					}
 
 					responses.push({
