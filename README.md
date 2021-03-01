@@ -80,6 +80,16 @@ returnProps (```String[]```):
 
 ## Exemplos
 
+### Exemplos de Request via interface:
+
+- Seleção de parâmetros para request:
+
+!["Parâmetros da Pesquisa"](./print2.jpg?raw=true)
+
+- Seleção de parâmetros com retorno:
+
+!["Parâmetros com retorno"](./print1.jpg?raw=true)
+
 ### Exemplo De Request com curl:
 
 ```bash
