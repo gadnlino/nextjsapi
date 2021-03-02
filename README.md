@@ -119,6 +119,12 @@ curl -X GET 'http://{apiAddress}/api/search?apis=CROSSREF&apis=ESCAVADOR&searchV
             'http://{apiAddress}/api/search',
             { params:  parameters});
 ```
+
+#### Links para os repositórios do Github
+
+- [https://github.com/gadnlino/nextjsapi](https://github.com/gadnlino/nextjsapi)
+- [https://github.com/CS-UFRJ/Repositorio-grupo-5](https://github.com/CS-UFRJ/Repositorio-grupo-5)
+
 #### Integrantes do grupo
 
 - [Eduardo Leão](https://github.com/LeaoEduardo/)
